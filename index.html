@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProEmbeded</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
+
+
 </head>
 <body>
     <header>
@@ -19,68 +25,91 @@
     <h3>Плата: Arduino Nano</h3>
     <h3>Processor: Atmega328P</h3>
     
-        <h2>Функції які необхідно писати у <code>void setup()</code></h2>
-        <ul>
-            <li><code>Serial.begin(<Швидкість>)</code></li>
-            <li><code>pinMode(<Порт>,<Мод>)</code></li>
-        </ul>
+    <h2>Функції які необхідно писати у <code>void setup()</code></h2>
 
-        <h2>Функції які необхідно писати у <code>void loop()</code></h2>
-        <ul>
-            <p>Оновлення змінних</p>
-            <li><code>Serial.print(<Текст>)</code></li>
-            <li><code>Serial.println(<Текст>)</code></li>
-            <li><code>analogRead(<Порт>)</code></li>
-            <li><code>digitalRead(<Порт>)</code></li>
-        </ul>
+    <pre>
+    <code  class="language-arduino">Serial.begin(&lt;Швидкість&gt;)</code>
+    <code  class="language-arduino">pinMode(&lt;Порт&gt;, &lt;Мод&gt;)</code>
+    </pre>
 
-        <h3>Приклад оголшення пінмоду</h3>
-        <code>pinMode(5,OUTPUT)</code>
-
-        <h3>Приклад зчитування з аналогового порту</h3>
-        <code>analogRead(A3)</code> 
-
-        <h3>Фрагмент коду для зчитування данних з аналогового порта та вивід їх у монітор порта</h3>
-            <code>
-                int val = analogRead(A3);
-                Serial.println(val);
-            </code>
-        
-        <h3>Функція для керування моторами</h3>
-            <code>
-                void movement(int pwmA, int SpeedA, int pwmB, int SpeedB){ <br>
-                    int truePWMB;<br>
-                    int truePWMA;<br>
-                    <br>
-                    if (SpeedA == 1){ 
-                        truePWMA = pwmA * -1;
-                    }<br>
-                    else{
-                        truePWMA = pwmA
-                    };
-                    <br>
-                    <br>
-                    if (SpeedB == 1){
-                        truePWMB = pwmB * -1;
-                    }<br>
-                    else {
-                        truePWMB = pwmB
-                    };<br>
-                    <br>
-                    digitalWrite(6, SpeedA);<br>
-                    digitalWrite(9, SpeedB);<br>
-                    analogWrite(5, truePWMA);<br>
-                    analogWrite(10, truePWMB);<br>
-                  }<br>
-            </code>
-
-        <h3>Приклад виклику функції для керування моторами</h3>
-            <code>
-                movement(50, 1, 50, 1);  //Для руху вперед<br>
-                movement(50, 0, 50, 0);  //Для руху назад<br>
-                movement(50, 1, 0, 1);  //Для руху вліво<br>
-                movement(0, 1, 50, 1);  //Для руху вправо
-            </code>
+    
+    <h2>Функції які необхідно писати у <code>void loop()</code></h2>
+    <pre>
+    <code class="language-arduino">Оновлення змінних</code>
+    <code class="language-arduino">Serial.print(&lt;Текст&gt;)</code>
+    <code class="language-arduino">Serial.println(&lt;Текст&gt;)</code>
+    <code class="language-arduino">analogRead(&lt;Порт&gt;)</code>
+    <code class="language-arduino">digitalRead(&lt;Порт&gt;)</code>
+    </pre>
+    
+    <h3>Приклад оголошення pinMode</h3>
+    <pre><code class="language-arduino">pinMode(5, OUTPUT)</code></pre>
+    
+    <h3>Приклад зчитування з аналогового порту</h3>
+    <pre><code class="language-arduino">analogRead(A3)</code></pre> 
+    
+    <h3>Фрагмент коду для зчитування даних з аналогового порту та виведення їх у монітор порту</h3>
+    <pre><code class="language-arduino">
+    int val = analogRead(A3);
+    Serial.println(val);
+    </code></pre>
+    
+    <h3>Функція для керування моторами</h3>
+    <pre><code class="language-arduino">
+    void movement(int pwmA, int SpeedA, int pwmB, int SpeedB){
+        int truePWMB;
+        int truePWMA;
+    
+        if (SpeedA == 1){ 
+            truePWMA = pwmA * -1;
+        }
+        else{
+            truePWMA = pwmA;
+        }
+    
+        if (SpeedB == 1){
+            truePWMB = pwmB * -1;
+        }
+        else {
+            truePWMB = pwmB;
+        }
+    
+        digitalWrite(6, SpeedA);
+        digitalWrite(9, SpeedB);
+        analogWrite(5, truePWMA);
+        analogWrite(10, truePWMB);
+    }
+    </code></pre>
+    
+    <h3>Приклад виклику функції для керування моторами</h3>
+    <pre><code class="language-arduino">
+    movement(50, 1, 50, 1);  // Для руху вперед
+    movement(50, 0, 50, 0);  // Для руху назад
+    movement(50, 1, 0, 1);   // Для руху вліво
+    movement(0, 1, 50, 1);   // Для руху вправо
+    movement(0, 0, 0, 0);    // Для зупинки
+    </code></pre>
+    
+    <h3>Приклад зупинки кванта, якщо попереду є перешкода</h3>
+    <pre><code class="language-arduino">
+    int center = analogRead(A6);
+    
+    // Значення приблизні
+    if(center > 90){
+        movement(0, 0, 0, 0);
+    }
+    </code></pre>
+    
+    <h3>Приклад повороту кванта</h3>
+    <pre><code class="language-arduino">
+    int right = analogRead(A7);
+    
+    // Значення приблизні
+    if(right > 90){
+        movement(50, 1, 0, 1);
+    }
+    </code></pre>
+    
     </div>
 </body>
 </html>
