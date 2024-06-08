@@ -12,9 +12,13 @@
         <a href="Senior.html">SeniorEmbeded</a>
         <a href="Expert.html">ExpertEmbeded</a>
     </header>
+    <div class="wrapper">
     <h1>Підказки до MakerTime</h1>
     <img src="Quant.png" alt="">
-    <div class="wrapper">
+
+    <h3>Плата: Arduino Nano</h3>
+    <h3>Processor: Atmega328P</h3>
+    
         <h2>Функції які необхідно писати у <code>void setup()</code></h2>
         <ul>
             <li><code>Serial.begin(<Швидкість>)</code></li>
@@ -30,10 +34,53 @@
             <li><code>digitalRead(<Порт>)</code></li>
         </ul>
 
-        <h2>Приклад оголшення пінмоду</h2>
-        <code>pinMode(5,OUTPUT)</code> 
-        <h2>Приклад оголшення пінмоду</h2>
-        <code>pinMode(5,OUTPUT)</code> 
+        <h3>Приклад оголшення пінмоду</h3>
+        <code>pinMode(5,OUTPUT)</code>
+
+        <h3>Приклад зчитування з аналогового порту</h3>
+        <code>analogRead(A3)</code> 
+
+        <h3>Фрагмент коду для зчитування данних з аналогового порта та вивід їх у монітор порта</h3>
+            <code>
+                int val = analogRead(A3);
+                Serial.println(val);
+            </code>
+        
+        <h3>Функція для керування моторами</h3>
+            <code>
+                void movement(int pwmA, int SpeedA, int pwmB, int SpeedB){ <br>
+                    int truePWMB;<br>
+                    int truePWMA;<br>
+                    <br>
+                    if (SpeedA == 1){ 
+                        truePWMA = pwmA * -1;
+                    }<br>
+                    else{
+                        truePWMA = pwmA
+                    };
+                    <br>
+                    <br>
+                    if (SpeedB == 1){
+                        truePWMB = pwmB * -1;
+                    }<br>
+                    else {
+                        truePWMB = pwmB
+                    };<br>
+                    <br>
+                    digitalWrite(6, SpeedA);<br>
+                    digitalWrite(9, SpeedB);<br>
+                    analogWrite(5, truePWMA);<br>
+                    analogWrite(10, truePWMB);<br>
+                  }<br>
+            </code>
+
+        <h3>Приклад виклику функції для керування моторами</h3>
+            <code>
+                movement(50, 1, 50, 1);  //Для руху вперед<br>
+                movement(50, 0, 50, 0);  //Для руху назад<br>
+                movement(50, 1, 0, 1);  //Для руху вліво<br>
+                movement(0, 1, 50, 1);  //Для руху вправо
+            </code>
     </div>
 </body>
 </html>
