@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <header>
+        <a href="WebJunior.html">WebJunior</a>
+        <a href="Kids.html">Kids</a>
+        <a href="KidsPro.html">KidsPros</a>
+        <a href="index.html">ProEmbeded</a>
+        <a href="Senior.html">SeniorEmbeded</a>
+    </header>
+    <div class="wrapper">
+    <h1>Підказки до MakerTime</h1>
+    <img src="Quant2.0.png" alt="">
+
+    <h3>Плата: Arduino Nano</h3>
+    <h3>Processor: Atmega328P(OldBootloader)</h3>
+    <h3>Ціль: проїхати повністью чорну лінію за 18 або меньше секунд</h3>
+    <br>
+    <h3>Функція для їзди вперед</h3>
+    <pre><code class="language-arduino">
+    void forward(){
+        analogWrite(5, 100);   //Швидкість приблизна
+        digitalWrite(6, HIGH); //Напрям моторів може відрізнятись
+        digitalWrite(7, LOW); //Напрям моторів може відрізнятись
+        digitalWrite(8, HIGH); //Напрям моторів може відрізнятись
+        digitalWrite(9, LOW); //Напрям моторів може відрізнятись
+        analogWrite(10, 100);   //Швидкість приблизна
+    }
+    </code></pre>
+
+
+    <h3>Функція для їзди назад</h3>
+    <pre><code class="language-arduino">
+        void backward(){
+            analogWrite(5, 100);   //Швидкість приблизна
+            digitalWrite(6, LOW); //Напрям моторів може відрізнятись
+            digitalWrite(7, HIGH); //Напрям моторів може відрізнятись
+            digitalWrite(8, LOW); //Напрям моторів може відрізнятись
+            digitalWrite(9, HIGH); //Напрям моторів може відрізнятись
+            analogWrite(10, 100);   //Швидкість приблизна
+        }
+        </code></pre>
+    
+    
+    <h3>Приклад виклику функції для керування моторами</h3>
+    <h5>! Виклик усіх функцій (окрім оголошення пінів та встановленням швидкості зв'язку) 
+        відбувається у void loop()</h5>
+    <pre><code class="language-arduino">
+        void loop(){
+            forward();
+            backward();
+        }
+    </code></pre>
+
+
+    <h3>Приклад зчитування з середнього датчика чорної лінії для руху вперед</h3>
+    <h5>! Знак оклику обов'язковий інакше квант буде реагувати на білий колір !</h5>
+    <pre><code class="language-arduino">
+        if(!digitalRead(A2)){ //Піни можете подивитись у розпіновці
+            forward();
+        }
+    </code></pre>
+
+    <h3>Приклад зчитування з середнього-правого датчика чорної лінії для руху вперед</h3>
+    <h5>! Знак оклику обов'язковий інакше квант буде реагувати на білий колір !</h5>
+    <pre><code class="language-arduino">
+        if(!digitalRead(A3)){ //Піни можете подивитись у розпіновці
+            right();
+        }
+    </code></pre>
+    </div>
+
+
+
+</body>
+</html>
