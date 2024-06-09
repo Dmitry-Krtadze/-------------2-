@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <header>
+        <a href="WebJunior.html">WebJunior</a>
+        <a href="index.html">ProEmbeded</a>
+        <a href="Senior.html">SeniorEmbeded</a>
+        <a href="Kids.html">Kids</a>
+    </header>
+    <div class="wrapper">
+    <h1>Підказки до MakerTime</h1>
+    <img src="sumopins.png" alt="">
+
+    <h3>Плата: Arduino Nano</h3>
+    <h3>Processor: Atmega328P</h3>
+    
+    <h2>Отримання значень з датчика чорної лінії</h2>
+    <img src="sumoLineTracker.png" alt="">
+
+    <h2>Отримання значень з датчика відстані</h2>
+    <img src="sumoDistance.png" alt="">
+
+    <h3>Функція для керування моторами</h3>
+    <pre><code class="language-arduino">
+    void movement(int pwmA, int SpeedA, int pwmB, int SpeedB){
+        int truePWMB;
+        int truePWMA;
+    
+        if (SpeedA == 1){ 
+            truePWMA = pwmA * -1;
+        }
+        else{
+            truePWMA = pwmA;
+        }
+    
+        if (SpeedB == 1){
+            truePWMB = pwmB * -1;
+        }
+        else {
+            truePWMB = pwmB;
+        }
+    
+        digitalWrite(6, SpeedA);
+        digitalWrite(9, SpeedB);
+        analogWrite(5, truePWMA);
+        analogWrite(10, truePWMB);
+    }
+    </code></pre>
+    
+    <h3>Приклад виклику функції для керування моторами</h3>
+    <pre><code class="language-arduino">
+    movement(50, 1, 50, 1);  // Для руху назад
+    movement(50, 0, 50, 0);  // Для руху вперед
+    movement(50, 1, 0, 1);   // Для руху вліво
+    movement(0, 1, 50, 1);   // Для руху вправо
+    movement(0, 0, 0, 0);    // Для зупинки
+    </code></pre>
+
+
+    </div>
+</body>
+</html>
